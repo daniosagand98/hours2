@@ -56,6 +56,113 @@ body{padding-bottom:60px!important}
 @media(min-width:760px){
   .bottom{left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:min(900px,100%)!important}
 }
+
+/* HOURS2 FINAL MOBILE LAYOUT FIX */
+html,body{
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  background:#07111f!important;
+}
+body{
+  display:flex!important;
+  flex-direction:column!important;
+}
+.top{
+  position:relative!important;
+  top:auto!important;
+  flex:0 0 auto!important;
+}
+.wrap{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  width:100%!important;
+  max-width:900px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  padding:14px 12px 18px!important;
+}
+.bottom{
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  max-width:none!important;
+  transform:none!important;
+  margin:0!important;
+  padding:7px 10px max(7px,env(safe-area-inset-bottom))!important;
+  border-radius:0!important;
+}
+.cloudBar{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:5px!important;
+  width:100%!important;
+  margin:10px auto 16px!important;
+  text-align:center!important;
+}
+#entryModal .timeRow,
+#payModal .timeRow,
+#tbModal .timeRow{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  column-gap:22px!important;
+  row-gap:12px!important;
+  width:100%!important;
+  align-items:end!important;
+  justify-content:stretch!important;
+}
+#entryModal .timeField,
+#payModal .timeField,
+#tbModal .timeField{
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+}
+#entryModal .timeField input,
+#payModal .timeField input,
+#tbModal .timeField input,
+#tbModal .timeField select{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  padding-left:8px!important;
+  padding-right:8px!important;
+}
+.modal{
+  height:100%!important;
+}
+@media(max-width:390px){
+  .wrap{padding:12px 10px 14px!important}
+  .bottom{padding:6px 8px max(6px,env(safe-area-inset-bottom))!important}
+  #entryModal .timeRow,#payModal .timeRow,#tbModal .timeRow{column-gap:18px!important}
+}
+@media(max-width:340px){
+  #entryModal .timeRow,#payModal .timeRow,#tbModal .timeRow{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+}
+@media(min-width:760px){
+  .bottom{
+    left:auto!important;
+    right:auto!important;
+    transform:none!important;
+    width:min(900px,100%)!important;
+    align-self:center!important;
+    border-left:1px solid var(--line)!important;
+    border-right:1px solid var(--line)!important;
+    border-radius:18px 18px 0 0!important;
+  }
+}
 </style></head><body><section id="sessionGate" class="sessionGate"><div class="sessionCard"><h2>Moje godziny</h2><p id="sessionMessage">Sprawdzanie logowania z lobby...</p><button id="backToLobby">Wróć do lobby</button></div></section><header class="top"><div class="toprow"><div class="titleGroup"><button id="homeLobbyBtn" class="lobbyBtn" type="button" aria-label="Wróć do lobby" title="Wróć do lobby">🏠</button><div class="titleText"><h1 id="appTitle">Moje godziny</h1><small id="appSub">Okres rozliczeniowy 26–25</small></div></div><div class="langs"><button data-lang="pl">🇵🇱</button><button data-lang="en">🇬🇧</button><button data-lang="no">🇳🇴</button></div></div><div class="period"><button id="prev">‹</button><select id="period"></select><button id="next">›</button></div></header><main class="wrap"><section class="summary"><div class="metric"><span id="lReg">Zwykłe</span><b id="reg">0:00</b></div><div class="metric"><span>50%</span><b id="p50">0:00</b></div><div class="metric"><span>100%</span><b id="p100">0:00</b></div><div class="metric clickable" id="timeBankCard"><span id="lTb">Time bank</span><b id="tb">0:00</b><small id="tbHint">Kliknij, aby wykorzystać</small></div><div class="metric"><span id="lVw">Vakt pn–pt</span><b id="vw">0</b></div><div class="metric"><span id="lVe">Vakt weekend</span><b id="ve">0</b></div></section><div class="cloudBar"><span id="cloudUser"></span> · <span id="cloudStatus">Sprawdzanie sesji...</span></div><div class="sectionTitle"><h2 id="historyTitle">Historia wpisów</h2></div><section id="entries"></section></main><nav class="bottom"><button id="quickExcel">📊 Excel</button><button class="add" id="add">＋ <span id="addText">Dodaj wpis</span></button><button id="dataBtn">💾 <span id="dataText">Dane</span></button></nav><input type="file" id="importFile" class="hidden" accept="application/json,.json"><div class="modal" id="entryModal"><div class="sheet"><div class="handle"></div><h2 id="modalTitle">Dodaj wpis</h2><form id="form"><input type="hidden" id="editId"><div class="field dateField"><label id="dateLabel">Data</label><input id="date" type="date" required><div class="quick"><button type="button" id="today">Dzisiaj</button><button type="button" id="yesterday">Wczoraj</button></div></div><div class="timeRow"><div class="field timeField"><label id="fromLabel">Od</label><input id="start" type="time" required></div><div class="field timeField"><label id="toLabel">Do</label><input id="end" type="time" required></div></div><div class="quick"><button type="button" data-start="05:30">05:30</button><button type="button" data-start="07:00">07:00</button><button type="button" data-start="09:00">09:00</button></div><div class="field"><label id="typeLabel">Sposób rozliczenia</label><select id="type"><option value="regular">Zwykłe godziny</option><option value="timebank">Time bank</option><option value="vakt">Vakt</option><option value="bonus">BONUS</option><option value="shift10">Zmiana 10h</option></select></div><div class="field"><label id="noteLabel">Notatka</label><input id="note" maxlength="100"></div><div class="sheetButtons"><button type="button" id="cancel">Anuluj</button><button class="save" id="save" type="submit">Zapisz</button></div></form></div></div><div class="modal" id="payModal"><div class="sheet"><div class="handle"></div><h2 id="payTitle">Kalkulator wynagrodzenia</h2><p class="status" id="payInfo">Ustawienia są zapisywane osobno dla każdego okresu.</p><form id="payForm"><div class="field"><label id="payPeriodLabel">Okres rozliczeniowy</label><select id="payPeriod"></select></div><div class="timeRow"><div class="field timeField"><label id="rateLabel">Stawka NOK/h</label><input id="hourlyRate" type="number" min="0" step="0.01" inputmode="decimal" required></div><div class="field timeField"><label id="taxLabel">Podatek %</label><input id="taxRate" type="number" min="0" max="100" step="0.1" inputmode="decimal" required></div></div><div class="status">50% = 1,5× stawka · 100% = 2× stawka · Vakt pn–pt = 400 NOK · Vakt weekend = 500 NOK · Jedzenie = 20 NOK/dzień</div><div class="payGrid"><div class="payBox"><span id="grossLabel">Brutto</span><b id="grossPay">0,00 NOK</b></div><div class="payBox"><span id="foodLabel">Jedzenie</span><b id="foodDeduction">0,00 NOK</b></div><div class="payBox"><span id="taxAmountLabel">Podatek</span><b id="taxAmount">0,00 NOK</b></div><div class="payBox payTotal"><span id="netLabel">Netto</span><b id="netPay">0,00 NOK</b></div></div><div id="payBreakdown" class="status"></div><div class="sheetButtons"><button type="button" id="payCancel">Anuluj</button><button class="save" id="paySave" type="submit">Zapisz ustawienia</button></div></form><div class="adminHint">Menu ukryte: przytrzymaj „Moje godziny” przez 5 sekund.</div></div></div><div class="modal" id="tbModal"><div class="sheet"><div class="handle"></div><h2 id="tbModalTitle">Wykorzystaj Time bank</h2><p id="tbBalanceText" class="status"></p><form id="tbForm"><div class="field dateField"><label id="tbDateLabel">Data odjęcia</label><input id="tbUseDate" type="date" required></div><div class="timeRow"><div class="field timeField"><label id="tbHoursLabel">Godziny</label><input id="tbUseHours" type="number" min="0" max="999" value="7" required></div><div class="field timeField"><label id="tbMinutesLabel">Minuty</label><select id="tbUseMinutes"><option value="0">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select></div></div><div class="field"><label id="tbDaysLabel">Dni wolne pokryte z Time bank</label><textarea id="tbCoveredDays" placeholder="Np. 12.10.2026 i 13.10.2026" required></textarea></div><div class="sheetButtons"><button type="button" id="tbCancel">Anuluj</button><button class="save" id="tbSave" type="submit">Odejmij godziny</button></div></form></div></div><div class="modal" id="dataModal"><div class="menuBox"><div class="handle"></div><h2 id="dataTitle">Dane</h2><div id="mainDataMenu"><button id="exportJson">📤 Eksport danych JSON</button><button id="importJson">📥 Import danych JSON</button></div><div id="importChoice" class="importChoice"><div id="importStatus" class="status"></div><button id="mergeData">🔗 Połącz dane</button><button id="replaceData">♻️ Zastąp obecne dane</button><button id="cancelImport">← Wróć</button></div><button id="closeData" class="close">Zamknij</button></div></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const SUPABASE_URL='https://xgcowpifwmihuukjinuf.supabase.co';
 const SUPABASE_KEY='sb_publishable_OvfeU9VHpQt-A8e8MX_ZQQ_tfMpQ3N_';
