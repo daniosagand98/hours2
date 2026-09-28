@@ -163,6 +163,47 @@ body{
     border-radius:18px 18px 0 0!important;
   }
 }
+
+/* HOURS2 TIME FIELDS COMPACT FIX */
+#entryModal .timeRow{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-end!important;
+  gap:24px!important;
+  width:100%!important;
+}
+#entryModal .timeField{
+  flex:0 0 118px!important;
+  width:118px!important;
+  min-width:0!important;
+  margin:0!important;
+}
+#entryModal .timeField input{
+  display:block!important;
+  width:118px!important;
+  max-width:118px!important;
+  min-width:0!important;
+  height:46px!important;
+  padding:0 7px!important;
+  text-align:center!important;
+  font-size:16px!important;
+}
+@media(max-width:390px){
+  #entryModal .timeRow{gap:18px!important}
+  #entryModal .timeField,#entryModal .timeField input{
+    flex-basis:108px!important;
+    width:108px!important;
+    max-width:108px!important;
+  }
+}
+@media(max-width:320px){
+  #entryModal .timeRow{gap:12px!important}
+  #entryModal .timeField,#entryModal .timeField input{
+    flex-basis:98px!important;
+    width:98px!important;
+    max-width:98px!important;
+  }
+}
 </style></head><body><section id="sessionGate" class="sessionGate"><div class="sessionCard"><h2>Moje godziny</h2><p id="sessionMessage">Sprawdzanie logowania z lobby...</p><button id="backToLobby">Wróć do lobby</button></div></section><header class="top"><div class="toprow"><div class="titleGroup"><button id="homeLobbyBtn" class="lobbyBtn" type="button" aria-label="Wróć do lobby" title="Wróć do lobby">🏠</button><div class="titleText"><h1 id="appTitle">Moje godziny</h1><small id="appSub">Okres rozliczeniowy 26–25</small></div></div><div class="langs"><button data-lang="pl">🇵🇱</button><button data-lang="en">🇬🇧</button><button data-lang="no">🇳🇴</button></div></div><div class="period"><button id="prev">‹</button><select id="period"></select><button id="next">›</button></div></header><main class="wrap"><section class="summary"><div class="metric"><span id="lReg">Zwykłe</span><b id="reg">0:00</b></div><div class="metric"><span>50%</span><b id="p50">0:00</b></div><div class="metric"><span>100%</span><b id="p100">0:00</b></div><div class="metric clickable" id="timeBankCard"><span id="lTb">Time bank</span><b id="tb">0:00</b><small id="tbHint">Kliknij, aby wykorzystać</small></div><div class="metric"><span id="lVw">Vakt pn–pt</span><b id="vw">0</b></div><div class="metric"><span id="lVe">Vakt weekend</span><b id="ve">0</b></div></section><div class="cloudBar"><span id="cloudUser"></span> · <span id="cloudStatus">Sprawdzanie sesji...</span></div><div class="sectionTitle"><h2 id="historyTitle">Historia wpisów</h2></div><section id="entries"></section></main><nav class="bottom"><button id="quickExcel">📊 Excel</button><button class="add" id="add">＋ <span id="addText">Dodaj wpis</span></button><button id="dataBtn">💾 <span id="dataText">Dane</span></button></nav><input type="file" id="importFile" class="hidden" accept="application/json,.json"><div class="modal" id="entryModal"><div class="sheet"><div class="handle"></div><h2 id="modalTitle">Dodaj wpis</h2><form id="form"><input type="hidden" id="editId"><div class="field dateField"><label id="dateLabel">Data</label><input id="date" type="date" required><div class="quick"><button type="button" id="today">Dzisiaj</button><button type="button" id="yesterday">Wczoraj</button></div></div><div class="timeRow"><div class="field timeField"><label id="fromLabel">Od</label><input id="start" type="time" required></div><div class="field timeField"><label id="toLabel">Do</label><input id="end" type="time" required></div></div><div class="quick"><button type="button" data-start="05:30">05:30</button><button type="button" data-start="07:00">07:00</button><button type="button" data-start="09:00">09:00</button></div><div class="field"><label id="typeLabel">Sposób rozliczenia</label><select id="type"><option value="regular">Zwykłe godziny</option><option value="timebank">Time bank</option><option value="vakt">Vakt</option><option value="bonus">BONUS</option><option value="shift10">Zmiana 10h</option></select></div><div class="field"><label id="noteLabel">Notatka</label><input id="note" maxlength="100"></div><div class="sheetButtons"><button type="button" id="cancel">Anuluj</button><button class="save" id="save" type="submit">Zapisz</button></div></form></div></div><div class="modal" id="payModal"><div class="sheet"><div class="handle"></div><h2 id="payTitle">Kalkulator wynagrodzenia</h2><p class="status" id="payInfo">Ustawienia są zapisywane osobno dla każdego okresu.</p><form id="payForm"><div class="field"><label id="payPeriodLabel">Okres rozliczeniowy</label><select id="payPeriod"></select></div><div class="timeRow"><div class="field timeField"><label id="rateLabel">Stawka NOK/h</label><input id="hourlyRate" type="number" min="0" step="0.01" inputmode="decimal" required></div><div class="field timeField"><label id="taxLabel">Podatek %</label><input id="taxRate" type="number" min="0" max="100" step="0.1" inputmode="decimal" required></div></div><div class="status">50% = 1,5× stawka · 100% = 2× stawka · Vakt pn–pt = 400 NOK · Vakt weekend = 500 NOK · Jedzenie = 20 NOK/dzień</div><div class="payGrid"><div class="payBox"><span id="grossLabel">Brutto</span><b id="grossPay">0,00 NOK</b></div><div class="payBox"><span id="foodLabel">Jedzenie</span><b id="foodDeduction">0,00 NOK</b></div><div class="payBox"><span id="taxAmountLabel">Podatek</span><b id="taxAmount">0,00 NOK</b></div><div class="payBox payTotal"><span id="netLabel">Netto</span><b id="netPay">0,00 NOK</b></div></div><div id="payBreakdown" class="status"></div><div class="sheetButtons"><button type="button" id="payCancel">Anuluj</button><button class="save" id="paySave" type="submit">Zapisz ustawienia</button></div></form><div class="adminHint">Menu ukryte: przytrzymaj „Moje godziny” przez 5 sekund.</div></div></div><div class="modal" id="tbModal"><div class="sheet"><div class="handle"></div><h2 id="tbModalTitle">Wykorzystaj Time bank</h2><p id="tbBalanceText" class="status"></p><form id="tbForm"><div class="field dateField"><label id="tbDateLabel">Data odjęcia</label><input id="tbUseDate" type="date" required></div><div class="timeRow"><div class="field timeField"><label id="tbHoursLabel">Godziny</label><input id="tbUseHours" type="number" min="0" max="999" value="7" required></div><div class="field timeField"><label id="tbMinutesLabel">Minuty</label><select id="tbUseMinutes"><option value="0">00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option></select></div></div><div class="field"><label id="tbDaysLabel">Dni wolne pokryte z Time bank</label><textarea id="tbCoveredDays" placeholder="Np. 12.10.2026 i 13.10.2026" required></textarea></div><div class="sheetButtons"><button type="button" id="tbCancel">Anuluj</button><button class="save" id="tbSave" type="submit">Odejmij godziny</button></div></form></div></div><div class="modal" id="dataModal"><div class="menuBox"><div class="handle"></div><h2 id="dataTitle">Dane</h2><div id="mainDataMenu"><button id="exportJson">📤 Eksport danych JSON</button><button id="importJson">📥 Import danych JSON</button></div><div id="importChoice" class="importChoice"><div id="importStatus" class="status"></div><button id="mergeData">🔗 Połącz dane</button><button id="replaceData">♻️ Zastąp obecne dane</button><button id="cancelImport">← Wróć</button></div><button id="closeData" class="close">Zamknij</button></div></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const SUPABASE_URL='https://xgcowpifwmihuukjinuf.supabase.co';
 const SUPABASE_KEY='sb_publishable_OvfeU9VHpQt-A8e8MX_ZQQ_tfMpQ3N_';
