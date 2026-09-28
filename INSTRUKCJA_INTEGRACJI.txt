@@ -1,0 +1,13 @@
+INTEGRACJA Z ISTNIEJACYM LOBBY
+
+Ta wersja nie ma osobnego logowania. Uzywa tej samej konfiguracji Supabase i aktywnej sesji co lobby.
+
+1. W istniejacym projekcie Supabase otworz SQL Editor.
+2. Uruchom cala zawartosc pliku supabase-hours-setup.sql.
+3. W repozytorium Hours (vf) zastap tylko index.html.
+4. Nie zmieniaj loginow ani kont w lobby.
+5. Uzytkownik loguje sie w lobby, a nastepnie otwiera Hours.
+6. Pierwsze uruchomienie konta bez danych przenosi lokalne wpisy z przegladarki do rekordu tego uzytkownika.
+7. Kolejne urzadzenia pobieraja dane po zalogowaniu tym samym kontem w lobby.
+
+UWAGA: Lobby i Hours musza korzystac z tego samego projektu Supabase. W tej wersji wpisano konfiguracje odczytana z przeslanego lobby.
